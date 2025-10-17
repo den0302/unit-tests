@@ -59,7 +59,6 @@
   * `ZooGraph`, `Graph`, `Aviary`, `Path`
 * `/Logger` — система логування
 * `/Menus` — консольні меню для різних ролей
-* `/tests` — unit-тести
 
 ## Залежності
 
@@ -74,7 +73,8 @@
 
 1. Створити файл `CMakeLists.txt`:
 
-```cmakecmake_minimum_required(VERSION 3.14)
+```cmake
+cmake_minimum_required(VERSION 3.14)
 project(Lab1)
 
 set(CMAKE_CXX_STANDARD 20)
@@ -178,7 +178,6 @@ add_custom_command(TARGET my_tests POST_BUILD
         "${SQLITE_PATH}/sqlite3.dll"
         $<TARGET_FILE_DIR:my_tests>
 )
-
 ```
 
 2. Зібрати проєкт у CLion або вручну:
@@ -209,6 +208,6 @@ ninja
 
 ## Файли
 
-* `Lab1.cpp` — основний код.
+* `Lab1.cpp` — основний вихідний код.
 * `zoo.db` — база даних SQLite.
 * `log.txt` — файл логів.
