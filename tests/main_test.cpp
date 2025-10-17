@@ -305,6 +305,51 @@ TEST(PathRepositoryTest, InitAndAddPath) {
     EXPECT_NO_THROW(repo.addPath("A1", "A2", 12.5));
 }
 
+class FailingMockDatabase : public DatabaseManager {
+public:
+    FailingMockDatabase() : DatabaseManager(":memory:") {}
+    bool execute(const string& sql) {
+        lastQuery = sql;
+        return false;
+    }
+    string lastQuery;
+};
+
+TEST(FailingDatabaseTest, AccountRepositoryDoesNotThrow) {
+    FailingMockDatabase db;
+    AccountRepository repo(db);
+
+    EXPECT_NO_THROW(repo.initTable());
+    EXPECT_NO_THROW(repo.addAccount("broken", 12345, Role::EMPLOYEE));
+}
+
+TEST(FailingDatabaseTest, AviaryRepositoryDoesNotThrow) {
+    FailingMockDatabase db;
+    AviaryRepository repo(db);
+    Aviary av("A1", "Broken", "Zone", 100, 5, "", "");
+
+    EXPECT_NO_THROW(repo.initTable());
+    EXPECT_NO_THROW(repo.addAviary(av));
+}
+
+TEST(FailingDatabaseTest, PathRepositoryDoesNotThrow) {
+    FailingMockDatabase db;
+    PathRepository repo(db);
+
+    EXPECT_NO_THROW(repo.initTable());
+    EXPECT_NO_THROW(repo.addPath("A1", "A2", 9.5));
+}
+
+TEST(FailingDatabaseTest, EmployeeRepositoryDoesNotThrow) {
+    FailingMockDatabase db;
+    EmployeeRepository repo(db);
+    Employee e("Jack", 25, 3200, 2);
+
+    EXPECT_NO_THROW(repo.initTable());
+    EXPECT_NO_THROW(repo.addEmployee(e));
+    EXPECT_NO_THROW(repo.assignEmployeeToAviary(e.getId(), "A1"));
+}
+
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
