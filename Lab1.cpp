@@ -1,10 +1,10 @@
 #include "Logger/LoggerGlobal.h"
 #include "Graphs/ZooGraph.h"
 #include "Menus/Menu.h"
+#include "DatabaseManager/AccountRepository.h"
 #include <string>
 #include <iostream>
 
-#include "DatabaseManager/AccountRepository.h"
 #ifdef _WIN32
 #include <windows.h>
 void enableANSI() {
@@ -38,7 +38,7 @@ int main() {
             cout << "Try again? (y/n): ";
             char c; cin >> c;
             if (c == 'y' || c == 'Y') continue;
-            break; 
+            break;
         }
 
         string username = session->first;
