@@ -12,13 +12,13 @@ using namespace std;
 //===========Aviary===========
 Aviary::Aviary(string& name, string& type, double area, int capacity)
         : name(move(name)), type(move(type)), area(area), capacity(capacity) {}
-Aviary::Aviary(string& id,
-               string& name,
-               string& type,
+Aviary::Aviary(string id,
+               string name,
+               string type,
                const double area,
                const int capacity,
-               string& assignedEmployee,
-               const string& animalsStr)
+               string assignedEmployee,
+               const string animalsStr)
     : Vertex(id), name(move(name)), type(move(type)), area(area),
 capacity(capacity), assignedEmployee(move(assignedEmployee)), animalsStrTemp(animalsStr)
 {

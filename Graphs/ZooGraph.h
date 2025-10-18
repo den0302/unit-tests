@@ -24,13 +24,13 @@ public:
            double area,
            int capacity);
 
-    Aviary(string& id,
-                   string& name,
-                   string& type,
+    Aviary(string id,
+                   string name,
+                   string type,
                    double area,
                    int capacity,
-                   string& assignedEmployee,
-                   const string& animalsStr);
+                   string assignedEmployee,
+                   const string animalsStr);
 
     [[nodiscard]] const string& getAnimalsStrTemp() const;
     void clearAnimalsStrTemp();
