@@ -2,6 +2,9 @@
 #include <Logger/LoggerGlobal.h>
 #include <Graphs/ZooGraph.h>
 #include <DatabaseManager/AccountRepository.h>
+#include <filesystem>
+#include <fstream>
+#include <ctime>
 
 using namespace std;
 
@@ -27,7 +30,7 @@ TEST(AccountTest, RoleConversions) {
 }
 
 TEST(AccountTest, DeserializeInvalidStringThrows) {
-    EXPECT_THROW(Account::deserialize("broken_data"), std::runtime_error);
+    EXPECT_THROW(Account::deserialize("broken_data"), runtime_error);
 }
 
 TEST(AnimalTest, CreateAndFeed) {
@@ -117,35 +120,50 @@ TEST(EmployeeTest, GetFullInfoFormat) {
     EXPECT_NE(info.find("Salary:"), string::npos);
 }
 
+struct TempFile {
+    string path;
+    explicit TempFile(string name_prefix = "zoo_test_log_") {
+        auto tmp_dir = filesystem::temp_directory_path();
+        auto unique_name = name_prefix + to_string(hash<string>{}(to_string(time(nullptr))));
+        path = (tmp_dir / unique_name).string();
+    }
+    ~TempFile() {
+        error_code ec;
+        filesystem::remove(path, ec);
+    }
+};
+
 TEST(LoggerTest, EnableDisableLevels) {
-    const string filename = "temp_test_log.txt";
-    Logger log(filename);
+    TempFile tmp;
+    Logger log(tmp.path);
     log.enable(Logger::DEBUG | Logger::INFO);
     EXPECT_TRUE(log.isEnabled(Logger::DEBUG));
     log.disable(Logger::DEBUG);
     EXPECT_FALSE(log.isEnabled(Logger::DEBUG));
-    remove(filename.c_str());
 }
 
 TEST(LoggerTest, EnableDisableAndWriteFile) {
-    const string filename = "temp_test_log.txt";
+    TempFile tmp;
     {
-        Logger log(filename);
+        Logger log(tmp.path);
         log.enable(Logger::DEBUG | Logger::INFO | Logger::WARN | Logger::ERROR);
+
         log.debug("debug msg");
         log.info("info msg");
         log.warn("warn msg");
         log.error("error msg");
+
         log.disable(Logger::DEBUG);
         EXPECT_FALSE(log.isEnabled(Logger::DEBUG));
     }
-    ifstream f(filename);
-    ASSERT_TRUE(f.is_open());
+    ifstream f(tmp.path);
+    ASSERT_TRUE(f.is_open()) << "Failed to open log file: " << tmp.path;
     string content((istreambuf_iterator<char>(f)), istreambuf_iterator<char>());
     EXPECT_NE(content.find("debug msg"), string::npos);
     EXPECT_NE(content.find("error msg"), string::npos);
     f.close();
-    remove(filename.c_str());
+    EXPECT_NE(content.find("debug msg"), string::npos);
+    EXPECT_NE(content.find("error msg"), string::npos);
 }
 
 class GraphTestHelper : public Graph {
@@ -205,7 +223,7 @@ TEST(GraphTest, DistanceBetweenNonConnectedVerticesReturnsInfinity) {
     g.addVertex(v1);
     g.addVertex(v2);
     double dist = g.distanceBetween("A", "B");
-    EXPECT_LE(dist, -1);
+    EXPECT_EQ(dist, -1.0);
 }
 
 TEST(GraphTest, RemoveEdge) {
@@ -267,9 +285,11 @@ TEST(ZooGraphTest, CheckDistanceAndIsZooConnected) {
     zoo.addAviary(aviary1);
     zoo.addAviary(aviary2);
 
+    EXPECT_FALSE(zoo.isZooConnected());
+
     zoo.addPath("A1", "A2", 15.0);
 
-    EXPECT_TRUE(zoo.isZooConnected() == false || true);
+    EXPECT_TRUE(zoo.isZooConnected());
     EXPECT_DOUBLE_EQ(zoo.distanceBetweenAviaries("A1", "A2"), 15.0);
 }
 
