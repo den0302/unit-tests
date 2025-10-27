@@ -1,3 +1,11 @@
+/**
+ * @file Logger.cpp
+ * @author Denys Freyuk
+ * @date 27.10.2025
+ * @version 1.0
+ * @brief Implementation for Logger.
+ */
+
 #include "Logger.h"
 #include <iostream>
 #include <ctime>

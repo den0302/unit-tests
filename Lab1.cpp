@@ -1,3 +1,11 @@
+/**
+ * @file Lab1.cpp
+ * @author Denys Freyuk
+ * @date 27.10.2025
+ * @version 1.0
+ * @brief Implementation for Lab1.
+ */
+
 #include "Logger/LoggerGlobal.h"
 #include "Graphs/ZooGraph.h"
 #include "Menus/Menu.h"

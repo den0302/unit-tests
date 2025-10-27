@@ -1,3 +1,11 @@
+/**
+ * @file Employee.cpp
+ * @author Denys Freyuk
+ * @date 27.10.2025
+ * @version 1.0
+ * @brief Implementation for Employee.
+ */
+
 #define byte win_byte_override
 #include <windows.h>
 #undef byte
