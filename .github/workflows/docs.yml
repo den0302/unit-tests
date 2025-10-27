@@ -5,7 +5,7 @@ on:
   push:
     branches:
       - main
-      - feature/unit-tests
+      - docs
       - feature/docs-ci
 
 jobs:
