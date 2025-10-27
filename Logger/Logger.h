@@ -1,3 +1,11 @@
+/**
+* @file Logger.h
+ * @author Denys Freyuk
+ * @date 27.10.2025
+ * @version 1.0
+ * @brief Header for Logger declarations.
+ */
+
 #ifndef LOGGER_H
 #define LOGGER_H
 #define NOMINMAX
@@ -7,14 +15,27 @@
 #include <string>
 using namespace std;
 
+/**
+ * @class Logger
+ * @brief Represents the Logger entity in the zoo management system.
+ * @details This class is part of the Zoo Management project.
+ */
+/**
+ * @example
+ * Logger* obj = nullptr; // Create or obtain an instance
+ * // Use the public interface as needed.
+ */
+
 class Logger {
+
 public:
     enum Level {
         DEBUG = 1 << 0,
         INFO  = 1 << 1,
         WARN  = 1 << 2,
         ERROR = 1 << 3
-    };
+
+};
 
 private:
     int flags;

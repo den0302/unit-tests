@@ -1,3 +1,11 @@
+/**
+ * @file AccountRepository.cpp
+ * @author Denys Freyuk
+ * @date 27.10.2025
+ * @version 1.0
+ * @brief Implementation of AccountRepository logic for the Zoo Management System.
+ */
+
 #include "AccountRepository.h"
 #include "../Logger/LoggerGlobal.h"
 #include "SQLUtilities/SQLUtils.h"

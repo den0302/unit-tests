@@ -1,3 +1,11 @@
+/**
+ * @file ZooGraph.cpp
+ * @author Denys Freyuk
+ * @date 27.10.2025
+ * @version 1.0
+ * @brief Implementation for ZooGraph.
+ */
+
 #include "ZooGraph.h"
 #include <iostream>
 #include <set>

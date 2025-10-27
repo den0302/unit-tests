@@ -1,3 +1,11 @@
+/**
+ * @file EmployeeManager.cpp
+ * @author Denys Freyuk
+ * @date 27.10.2025
+ * @version 1.0
+ * @brief Implementation for EmployeeManager.
+ */
+
 #include "EmployeeManager.h"
 #include "../Graphs/ZooGraph.h"
 #include "../Logger/LoggerGlobal.h"

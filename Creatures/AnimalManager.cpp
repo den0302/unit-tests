@@ -1,3 +1,11 @@
+/**
+ * @file AnimalManager.cpp
+ * @author Denys Freyuk
+ * @date 27.10.2025
+ * @version 1.0
+ * @brief Implementation for AnimalManager.
+ */
+
 #include "AnimalManager.h"
 #include "../Logger/LoggerGlobal.h"
 #include "../Graphs/ZooGraph.h"

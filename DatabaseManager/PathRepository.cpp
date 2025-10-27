@@ -1,3 +1,11 @@
+/**
+ * @file PathRepository.cpp
+ * @author Denys Freyuk
+ * @date 27.10.2025
+ * @version 1.0
+ * @brief Implementation of PathRepository logic for the Zoo Management System.
+ */
+
 #include "PathRepository.h"
 #include "../Graphs/ZooGraph.h"
 #include "../Logger/LoggerGlobal.h"
